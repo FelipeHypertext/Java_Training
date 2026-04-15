@@ -77,6 +77,8 @@ public class App {
                         for (int i = 0; i < listaProdutos.size(); i++) {
                             if (listaProdutos.get(i).getNome().equalsIgnoreCase(busca)) {
                                 System.out.printf("O produto foi encontrado na posição %d da lista.", i);
+                                System.out.printf("Nome: " + listaProdutos.get(i).getNome() + "\n");
+                                System.out.print("Preço: " + listaProdutos.get(i).getPreco() + "\n");
                                 statusEncontrado = true;
                             }
                         }
