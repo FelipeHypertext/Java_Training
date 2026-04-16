@@ -36,7 +36,6 @@ public class App {
                         listarContatos(listaTelefones);
                         break;
                 }
-                scanner.nextLine();
             } else {break;}
         }
     }
@@ -60,25 +59,26 @@ public class App {
             System.out.println("=== EDITAR CONTATO ===\n" +
                     "[1] Editar telefone\n" +
                     "[2] Editar email\n" +
-                    "[3] Voltar");
+                    "[3] Voltar\n");
+            System.out.println("Escolha uma opcao:");
             opcaoEditar = scanner.nextInt();
+            scanner.nextLine();
             if (opcaoEditar != 3){
                 switch (opcaoEditar){
                     case 1:
                         /*Editar Nome*/
-                        scanner.nextLine();
                         boolean encontradoNome = false;
-                        System.out.printf("\n%-20s | %-10s\n | %-30s\n", "Nome", "Telefone", "Email");
+                        System.out.printf("\n%-20s | %-10s | %-30s\n", "Nome", "Telefone", "Email");
                         for (int i = 0; i < listaTelefones.size(); i++) {
-                            System.out.printf("%-20s | %-10s\n | %-30s\n",
+                            System.out.printf("\n%-20s | %-10s | %-30s\n",
                                     listaTelefones.get(i).getNome(), listaTelefones.get(i).getTelefone(), listaTelefones.get(i).getEmail());
                         }
 
                         System.out.println("Digite o nome do contato que deseja alterar o nome: ");
                         String buscaNome = scanner.nextLine();
+                        scanner.nextLine();
                         for (int i = 0; i < listaTelefones.size(); i++) {
                             if (listaTelefones.get(i).getNome().equalsIgnoreCase(buscaNome)) {
-                                scanner.nextLine();
                                 System.out.print("Digite o novo nome do contato: ");
                                 String novoNome = scanner.nextLine();
                                 listaTelefones.get(i).setNome(novoNome);
@@ -92,21 +92,20 @@ public class App {
                         break;
                     case 2:
                         /*Editar email*/
-                        scanner.nextLine();
                         boolean encontradoEmail = false;
-                        System.out.printf("\n%-20s | %-10s\n | %-30s\n", "Nome", "Telefone", "Email");
+                        System.out.printf("\n%-20s | %-10s | %-30s\n", "Nome", "Telefone", "Email");
                         for (int i = 0; i < listaTelefones.size(); i++) {
-                            System.out.printf("%-20s | %-10s\n | %-30s\n",
+                            System.out.printf("\n%-20s | %-10s | %-30s\n",
                                     listaTelefones.get(i).getNome(), listaTelefones.get(i).getTelefone(), listaTelefones.get(i).getEmail());
                         }
                         System.out.println("Digite o nome do contato que deseja alterar o email: ");
                         String buscaEmail = scanner.nextLine();
+                        scanner.nextLine();
                         for (int i = 0; i < listaTelefones.size(); i++) {
                             if (listaTelefones.get(i).getNome().equalsIgnoreCase(buscaEmail)) {
-                                scanner.nextLine();
                                 System.out.print("Digite o novo email do contato: ");
                                 String novoEmail = scanner.nextLine();
-                                listaTelefones.get(i).setNome(novoEmail);
+                                listaTelefones.get(i).setEmail(novoEmail);
                                 encontradoEmail = true;
                             }
                         }
@@ -125,16 +124,15 @@ public class App {
 
     /*Excluir contatos*/
     public static void removerContato(Scanner scanner, ArrayList<ListaTelefonica> listaTelefones) {
-        scanner.nextLine();
         if (listaTelefones.isEmpty()) {
             System.out.println("A lista não tem nenhum contato cadastrado.");
             return;
         }
 
         listaTelefones.sort(Comparator.comparing(ListaTelefonica::getNome));
-        System.out.printf("\n%-20s | %-10s\n | %-30s\n", "Nome", "Telefone", "Email");
+        System.out.printf("\n%-20s | %-10s | %-30s\n", "Nome", "Telefone", "Email");
         for (int i = 0; i < listaTelefones.size(); i++) {
-            System.out.printf("%-20s | %-10s\n | %-30s\n",
+            System.out.printf("\n%-20s | %-10s | %-30s\n",
                     listaTelefones.get(i).getNome(), listaTelefones.get(i).getTelefone(), listaTelefones.get(i).getEmail());
         }
 
@@ -145,12 +143,14 @@ public class App {
             if (listaTelefones.get(i).getNome().equalsIgnoreCase(busca)) {
                 listaTelefones.remove(i);
                 System.out.println("Contato removido da lista.");
+                encontrado = true;
             }
         }
 
         if (!encontrado) {
-            System.out.println("O conato não foi encontrado na lista.");
+            System.out.println("O contato não foi encontrado na lista.");
         }
+        scanner.nextLine();
     }
 
     /*Listar contatos*/
@@ -161,9 +161,9 @@ public class App {
         }
 
         listaTelefones.sort(Comparator.comparing(ListaTelefonica::getNome));
-        System.out.printf("\n%-20s | %-10s\n | %-30s\n", "Nome", "Telefone", "Email");
+        System.out.printf("\n%-20s | %-10s | %-30s\n", "Nome", "Telefone", "Email");
         for (int i = 0; i < listaTelefones.size(); i++) {
-            System.out.printf("%-20s | %-10s\n | %-30s\n",
+            System.out.printf("\n%-20s | %-10s | %-30s\n",
                     listaTelefones.get(i).getNome(), listaTelefones.get(i).getTelefone(), listaTelefones.get(i).getEmail());
         }
     }
