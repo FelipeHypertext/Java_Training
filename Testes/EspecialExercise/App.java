@@ -5,7 +5,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public class App {
-    public static void main(String[] args) {
+    static void main() {
         boolean conf = false;
         float aumento = 0, pagamentoFinal = 0;
         Scanner scanner = new Scanner(System.in);
@@ -33,7 +33,7 @@ public class App {
                    Data prevista: %s
                    Data pagamento: %s
                    Valor: R$ %.2f
-                            
+                   
                    Pagamento em atraso.
                    Dias de atraso: %d%n
                    Juros: R$ %.2f
@@ -53,7 +53,7 @@ public class App {
                     Data prevista: %s
                     Data pagamento: %s
                     Valor: R$ %.2f
-                            
+                    
                     Pagamento realizado no prazo.
                     Valor final: R$ %.2f
                     """,
