@@ -8,16 +8,18 @@ import java.util.ArrayList;
 import java.io.File;
 /* Biblioteca para escrever dados em arquivos */
 import java.io.FileWriter;
+/*Biblioteca para comparar e ordenar*/
+import java.util.Comparator;
 
 public class ManipulacaoArquivos {
 
-//    public static void salvarArquivo() {
-//        try {
-//            FileWriter writer = new FileWriter("contatos.txt");
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+    /*public static void salvarArquivo() {
+        try {
+            FileWriter writer = new FileWriter("contatos.txt");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }*/
 
     public static void main(String[] args) throws Exception {
 
@@ -29,6 +31,9 @@ public class ManipulacaoArquivos {
 
         /* Representa o arquivo contatos.txt */
         File arquivo = new File("contatos.txt");
+
+        /*Append true - é possível adicionar texto durante a execução*/
+        FileWriter writer = new FileWriter("contatos.txt", true);
 
         /* Verifica se o arquivo existe */
         if (arquivo.exists()) {
@@ -48,7 +53,7 @@ public class ManipulacaoArquivos {
                 /* Guarda cada parte em variáveis */
                 String nome = partes[0];
                 String telefone = partes[1];
-                String email = partes[3];
+                String email = partes[2];
 
                 /* Cria um objeto Contato e adiciona ao ArrayList */
                 lista.add(new Contato(nome, telefone, email));
@@ -59,7 +64,7 @@ public class ManipulacaoArquivos {
         }
 
 
-        /* Meunu principal */
+        /* Menu principal */
         int opcao = 0;
 
         while (opcao != 3) {
@@ -69,7 +74,7 @@ public class ManipulacaoArquivos {
             System.out.println("[2] Listar");
             System.out.println("[3] Sair");
 
-            System.out.print("\nEscolha uma opcao: ");
+            System.out.print("\nEscolha uma opção: ");
 
             /* Lê a opção digitada */
             opcao = scanner.nextInt();
@@ -94,37 +99,49 @@ public class ManipulacaoArquivos {
                 /* Adiciona um novo contato na lista */
                 lista.add(c);
 
-                FileWriter writer = new FileWriter("contatos.txt");
                 writer.write(c.getNome() + ";" + c.getTelefone() + ";" + c.getEmail() + "\n");
                 System.out.println("Contato adicionado e salvo nos contatos!");
-                writer.close();
+                /*Salva no arquivo no momento que é chamado*/
+                writer.flush();
             }
 
             /* Listar contatos */
             if (opcao == 2) {
 
+                lista.sort(Comparator.comparing(Contato::getNome));
+                int i = 0;
+
+                System.out.printf(
+                        """
+                        %-5s| %-10s| %-15s| %-20s
+                        """, "ID", "Nome", "Telefone", "E-mail");
                 /* Percorre toda a lista */
                 for (Contato c : lista) {
-
+                    i++;
                     /* Mostra os dados do contato */
-                    System.out.println(c.getNome() + " - " + c.getTelefone() + " - " + c.getEmail());
+                    System.out.printf(
+                            """
+                            %-5d| %-10s| %-15s| %-20s \n
+                            """, i, c.getNome(), c.getTelefone(), c.getEmail());
                 }
             }
         }
 
-        /* Salvar os dados no arquivo 'contatos.txt' */
+        writer.close();
+        /*Salvar os dados no arquivo 'contatos.txt'*/
 
-    // Cria e escreve no arquivo contatos.txt
-//        FileWriter writer = new FileWriter("contatos.txt");
+        /*Cria e escreve no arquivo contatos.txt*/
+        FileWriter writerFinal = new FileWriter(arquivo);
 
-        /* Percorre todos os contatos da lista */
-//        for (Contato c : lista) {
-//            /* Salva no formato 'nome;telefone'*/
-//            writer.write(c.getNome() + ";" + c.getTelefone() + "\n");
-//        }
+        lista.sort(Comparator.comparing(Contato::getNome));
+        /*Percorre todos os contatos da lista*/
+        for (Contato c : lista) {
+             /*Salva no formato 'nome;telefone;email'*/
+            writerFinal.write(c.getNome() + ";" + c.getTelefone() + ";" + c.getEmail() + "\n");
+        }
 
-        /* Fecha o arquivo */
-//        writer.close();
+        /*Fecha o arquivo*/
+        writerFinal.close();
 
         System.out.println("Dados salvos!");
 
